@@ -16,8 +16,7 @@
     <PackageReference Include="SPTarkov.Common" Version="4.0.13" />
     <PackageReference Include="SPTarkov.DI" Version="4.0.13" />
     <PackageReference Include="SPTarkov.Server.Core" Version="4.0.13" />
-    <!-- LeavesUtils ships as its own separately-installed mod - compile against it, but don't copy
-         a private DLL of it (or its own CommonUtils dependency) into this mod's output. -->
+    <!-- LeavesUtils ships as its own separately-installed mod - compile against it, but don't copy a dll-->
     <ProjectReference Include="../Leaves-LeavesUtil/Leaves-LeavesUtil.csproj">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
