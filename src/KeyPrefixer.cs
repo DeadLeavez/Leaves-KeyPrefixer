@@ -17,8 +17,10 @@ public class KeyPrefixer(
 {
     public Task OnLoad()
     {
+        //Data löding
         string modPath = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
         ModConfig config = modHelper.GetJsonDataFromFile<ModConfig>(modPath, "config/config.jsonc");
+        Dictionary<string, string> keyMap = modHelper.GetJsonDataFromFile<Dictionary<string, string>>(modPath, "config/keymap.jsonc");
 
         if (!config.Enabled)
         {
@@ -32,7 +34,6 @@ public class KeyPrefixer(
             return Task.CompletedTask;
         }
 
-        Dictionary<string, string> keyMap = modHelper.GetJsonDataFromFile<Dictionary<string, string>>(modPath, "data/keymap.jsonc");
 
         // Collapse each key id to its prefix string.
         Dictionary<string, string> idToPrefix = new Dictionary<string, string>();
