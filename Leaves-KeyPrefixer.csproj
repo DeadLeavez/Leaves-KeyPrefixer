@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
     <Version>1.0.0</Version>
-    <!-- Build straight into a droppable user/mods/<ModName> layout at the workspace root -->
+    <!-- Build straight into a droppable user/mods/<ModName> layout at the 4.0 workspace root -->
     <OutputPath>..\dist\SPT\user\mods\$(MSBuildProjectName)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <PackageReference Include="SPTarkov.Common" Version="4.0.13" />
     <PackageReference Include="SPTarkov.DI" Version="4.0.13" />
     <PackageReference Include="SPTarkov.Server.Core" Version="4.0.13" />
-    <!-- LeavesUtils ships as its own separately-installed mod - compile against it, but don't copy a dll-->
+    <!-- LeavesUtils ships as its own separately-installed mod - compile against it, but don't copy a dll -->
     <ProjectReference Include="../Leaves-LeavesUtil/Leaves-LeavesUtil.csproj">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>
@@ -36,8 +36,26 @@
     <ItemGroup>
       <OutputFiles Include="$(OutputPath)**\*.*" />
     </ItemGroup>
+
+    <!-- 1. Purge previous output so removed/renamed files don't stick round -->
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\_dist\SPT"
+      Condition="Exists('$(MSBuildProjectDirectory)\_dist\SPT')" />
+
+    <!-- 2. Copy fresh build output into the mod folder structure -->
     <Copy SourceFiles="@(OutputFiles)"
       DestinationFolder="$(MSBuildProjectDirectory)\_dist\SPT\user\mods\$(MSBuildProjectName)\%(RecursiveDir)"
       SkipUnchangedFiles="true" />
+
+    <!-- 3. Zip the CONTENTS of _dist -->
+    <ZipDirectory SourceDirectory="$(MSBuildProjectDirectory)\_dist"
+      DestinationFile="$(MSBuildProjectDirectory)\$(MSBuildProjectName)_$(Version).zip"
+      Overwrite="true" />
+
+    <!-- 4. Purge the loose folder, leaving only the zip -->
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\_dist\SPT" />
+
+    <!-- 5. Move the finished zip into _dist -->
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(MSBuildProjectName)_$(Version).zip"
+      DestinationFiles="$(MSBuildProjectDirectory)\_dist\$(MSBuildProjectName)_$(Version).zip" />
   </Target>
 </Project>
