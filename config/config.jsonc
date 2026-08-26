@@ -1,0 +1,27 @@
+{
+    "enabled": true, //Enable/disable the mod
+
+    "prefixName": true, //Prefix long name
+    "prefixShortName": true, //Prefix short name
+
+    "mapPrefixes": { //add more if you want to. 
+        "Ground Zero": "GZ-",
+        "Customs":     "CU-",
+        "Factory":     "FA-",
+        "Woods":       "WO-",
+        "Interchange": "IN-",
+        "Shoreline":   "SH-",
+        "Lighthouse":  "LI-",
+        "Streets":     "ST-",
+        "Laboratory":  "LAB-",
+        "Labyrinth":   "LBR-",
+        "Universal":   "UNI-",
+        "Icebreaker": "IB-",
+        "Reserve":     "",
+        "Unused":      "",
+        "Unknown":     "",
+        "Terminal":    "",
+        "Quest":       "",
+        "Crafting":    ""
+    }
+}

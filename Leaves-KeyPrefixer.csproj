@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Leaves_KeyPrefixer</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <Version>1.0.0</Version>
+    <!-- Build straight into a droppable user/mods/<ModName> layout at the workspace root -->
+    <OutputPath>..\dist\SPT\user\mods\$(MSBuildProjectName)\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SPTarkov.Common" Version="4.0.13" />
+    <PackageReference Include="SPTarkov.DI" Version="4.0.13" />
+    <PackageReference Include="SPTarkov.Server.Core" Version="4.0.13" />
+    <!-- LeavesUtils ships as its own separately-installed mod - compile against it, but don't copy
+         a private DLL of it (or its own CommonUtils dependency) into this mod's output. -->
+    <ProjectReference Include="../Leaves-LeavesUtil/Leaves-LeavesUtil.csproj">
+      <Private>false</Private>
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="config\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
