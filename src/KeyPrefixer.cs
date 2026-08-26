@@ -94,7 +94,7 @@ public class KeyPrefixer(
             return locale;
         }
 
-        // Register on every language
+        // Apply on every language
         int languageCount = 0;
         foreach (var language in databaseService.GetLocales().Global)
         {

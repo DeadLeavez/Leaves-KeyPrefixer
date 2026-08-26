@@ -48,3 +48,4 @@ coverage
 /deps/*.js
 *.js
 /obj/
+/_dist/
