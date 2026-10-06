@@ -37,9 +37,10 @@
       <OutputFiles Include="$(OutputPath)**\*.*" />
     </ItemGroup>
 
-    <!-- 1. Purge previous output so removed/renamed files don't stick round -->
-    <RemoveDir Directories="$(MSBuildProjectDirectory)\_dist\SPT"
-      Condition="Exists('$(MSBuildProjectDirectory)\_dist\SPT')" />
+    <!-- 1. Purge the ENTIRE previous _dist (old-version zips included) so a version bump doesn't
+         leave stale zips behind and removed/renamed files don't stick round -->
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\_dist"
+      Condition="Exists('$(MSBuildProjectDirectory)\_dist')" />
 
     <!-- 2. Copy fresh build output into the mod folder structure -->
     <Copy SourceFiles="@(OutputFiles)"
